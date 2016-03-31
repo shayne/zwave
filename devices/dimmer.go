@@ -1,6 +1,5 @@
 package devices
 
-// DimmerDevice yah
 import (
 	"fmt"
 
@@ -10,31 +9,27 @@ import (
 // DimmerDevice yah
 type DimmerDevice struct {
 	Name string
-	node openzwave.Node
+	Node openzwave.Node
 }
 
 // ChangeValue func
 func (d *DimmerDevice) ChangeValue(value float32) {
-	currentValue := d.node.GetValue(38, 1, 0)
+	currentValue := d.Node.GetValue(38, 1, 0)
 	currentValue.SetString(fmt.Sprintf("%v", value))
 }
 
-// NodeAdded yah
+// NodeAdded func
 func (*DimmerDevice) NodeAdded() {
-	fmt.Println("Node added")
 }
 
-// NodeChanged yah
+// NodeChanged func
 func (*DimmerDevice) NodeChanged() {
-	fmt.Println("Node changed")
 }
 
-// NodeRemoved yah
+// NodeRemoved func
 func (*DimmerDevice) NodeRemoved() {
-	fmt.Println("Node removed")
 }
 
-// ValueChanged yah
+// ValueChanged func
 func (*DimmerDevice) ValueChanged(value openzwave.Value) {
-	fmt.Println("Value changed")
 }

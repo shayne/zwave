@@ -3,19 +3,25 @@ package devices
 import (
 	"fmt"
 
-	"github.com/ninjasphere/go-openzwave"
+	openzwave "github.com/ninjasphere/go-openzwave"
 )
 
 // DeviceFactory yah
 func DeviceFactory(api openzwave.API, node openzwave.Node) openzwave.Device {
-	fmt.Println("myDeviceFactory called")
+	fmt.Printf("Device factory, node: %s %s\n", node.GetProductDescription(), node.GetNodeName())
 
-	if node.GetId() == 2 {
+	desc := node.GetProductDescription()
+	// Only detecting dimmer types for now
+	if desc.ProductType == "0x4450" {
 		return &DimmerDevice{
-			Name: "Hallway dimmer",
-			node: node,
+			Name: node.GetNodeName(),
+			Node: node,
 		}
 	}
 
-	return &UnknownDevice{}
+	fmt.Printf("Unhandled node: %s\n", node)
+	return nil
+	// return &UnknownDevice{
+	// 	Name: "Unknown Device",
+	// }
 }

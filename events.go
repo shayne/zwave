@@ -14,9 +14,9 @@ func EventsCallback(api openzwave.API, event openzwave.Event) {
 		fmt.Println("NodeAvailable!")
 		node := event.GetNode()
 		device := node.GetDevice()
-		// Hack to detect dimmer and set its value to 0
+		// Add node to any device that supports it
 		if dimmer, ok := device.(*devices.DimmerDevice); ok {
-			dimmer.ChangeValue(0)
+			deviceMap[dimmer.Node.GetNodeName()] = dimmer
 		}
 	case *openzwave.NodeChanged:
 		fmt.Println("NodeChanged!")

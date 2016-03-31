@@ -1,33 +1,24 @@
 package devices
 
-import (
-	"fmt"
-
-	"github.com/ninjasphere/go-openzwave"
-)
+import "github.com/ninjasphere/go-openzwave"
 
 // UnknownDevice yah
 type UnknownDevice struct {
 	Name string
-	node openzwave.Node
 }
 
-// NodeAdded yah
+// NodeAdded func
 func (*UnknownDevice) NodeAdded() {
-	fmt.Println("Node added")
 }
 
-// NodeChanged yah
+// NodeChanged func
 func (*UnknownDevice) NodeChanged() {
-	fmt.Println("Node changed")
 }
 
-// NodeRemoved yah
+// NodeRemoved func
 func (*UnknownDevice) NodeRemoved() {
-	fmt.Println("Node removed")
 }
 
-// ValueChanged yah
+// ValueChanged func
 func (*UnknownDevice) ValueChanged(value openzwave.Value) {
-	fmt.Println("Value changed")
 }
