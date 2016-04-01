@@ -7,8 +7,7 @@ import (
 	"github.com/shayne/zwave/devices"
 )
 
-// EventsCallback yah
-func EventsCallback(api openzwave.API, event openzwave.Event) {
+func eventsCallback(api openzwave.API, event openzwave.Event) {
 	switch event.(type) {
 	case *openzwave.NodeAvailable:
 		fmt.Println("NodeAvailable!")
