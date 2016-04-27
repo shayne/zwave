@@ -31,6 +31,6 @@ func main() {
 	// os.Exit(zwaveDriver.wait())
 
 	shell := newShell(zwaveDriver)
-	shell.cli.Println("zwave shell-test")
+	shell.cli.Println("zwave shell")
 	shell.cli.Start()
 }

@@ -3,3 +3,6 @@
 
 # go vendored libs
 /vendor/
+
+# build dir
+/build/

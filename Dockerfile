@@ -2,11 +2,6 @@ FROM ubuntu:trusty
 
 # DEPS
 
-# 1. Install debian packages.
-# 2. Fetch the raspberrypi/tools tarball from github.
-# 3. Extract only the toolchain we will be using.
-# 4. Create rpxc- prefixed symlinks in /usr/local/bin (eg. rpxc-gcc, rpxc-ld)
-WORKDIR /rpxc
 RUN apt-get update \
  && DEBIAN_FRONTEND=noninteractive apt-get install -y \
        gcc-4.7-arm-linux-gnueabi \
@@ -26,7 +21,7 @@ RUN apt-get update \
        libtool \
        pkg-config \
        gperf \
- ;
+  ;
 
  RUN update-alternatives --install /usr/bin/arm-linux-gnueabi-gcc arm-linux-gnueabi-gcc /usr/bin/arm-linux-gnueabi-gcc-4.7 10 \
   && update-alternatives --install /usr/bin/arm-linux-gnueabi-g++ arm-linux-gnueabi-g++ /usr/bin/arm-linux-gnueabi-g++-4.7 10 \
@@ -39,9 +34,10 @@ ENV GOLANG_DOWNLOAD_URL https://golang.org/dl/go$GOLANG_VERSION.linux-amd64.tar.
 ENV GOLANG_DOWNLOAD_SHA256 e40c36ae71756198478624ed1bb4ce17597b3c19d243f3f0899bb5740d56212a
 
 RUN curl -fsSL "$GOLANG_DOWNLOAD_URL" -o golang.tar.gz \
-&& echo "$GOLANG_DOWNLOAD_SHA256  golang.tar.gz" | sha256sum -c - \
-&& tar -C /usr/local -xzf golang.tar.gz \
-&& rm golang.tar.gz
+  && echo "$GOLANG_DOWNLOAD_SHA256  golang.tar.gz" | sha256sum -c - \
+  && tar -C /usr/local -xzf golang.tar.gz \
+  && rm golang.tar.gz \
+  ;
 
 ENV GOPATH /go
 ENV PATH $GOPATH/bin:/usr/local/go/bin:$PATH
@@ -96,8 +92,12 @@ RUN cd openzwave-1.4.193 \
   && cp libopenzwave.so* /usr/arm-linux-gnueabi/lib \
   ;
 
+# GO ENV
+
 ENV GOOS=linux
 ENV GOARCH=arm
 ENV CGO_ENABLED=1
 ENV CC=arm-linux-gnueabi-gcc
 ENV GXX=arm-linux-gnueabi-g++
+
+WORKDIR /go
