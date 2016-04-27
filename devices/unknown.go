@@ -1,6 +1,6 @@
 package devices
 
-import "github.com/ninjasphere/go-openzwave"
+import "github.com/shayne/zwave/go-openzwave"
 
 // UnknownDevice yah
 type UnknownDevice struct {

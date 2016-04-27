@@ -1,0 +1,18 @@
+hash: 824c82d3207ea10f5bec414c1738ac9f12ecdc5be3d6d098d2b0b691831a7e37
+updated: 2016-04-26T20:47:30.166473217-07:00
+imports:
+- name: github.com/abiosoft/ishell
+  version: fb8c158a6681dcda157e2bdbe8fe7b0b419c7cbb
+- name: github.com/chzyer/readline
+  version: dc5da28fbf5287157fcd4719c794b59cd8852115
+  subpackages:
+  - runes
+- name: github.com/flynn/go-shlex
+  version: 3f9db97f856818214da2e1057f8ad84803971cff
+- name: golang.org/x/crypto
+  version: 285fb2ed20d1dc450fc743a1b3ff7c36bef372b9
+  subpackages:
+  - ssh/terminal
+- name: gopkg.in/readline.v1
+  version: 14e9df7f3c68bca64f111bab38196975d4696e2f
+devImports: []

@@ -1,2 +1,5 @@
 # binary
-zwave
+/zwave
+
+# go vendored libs
+/vendor/

@@ -3,7 +3,7 @@ package main
 import (
 	"fmt"
 
-	"github.com/ninjasphere/go-openzwave"
+	"github.com/shayne/zwave/go-openzwave"
 	"github.com/shayne/zwave/devices"
 )
 

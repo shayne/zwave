@@ -19,9 +19,6 @@ func main() {
 	zwaveDriver, err := newZwaveDriver(debug)
 	zwaveDriver.setReadyCallback(func() {
 		go func() {
-			shell := newShell(zwaveDriver)
-			shell.cli.Println("zwave shell")
-			shell.cli.Start()
 		}()
 	})
 
@@ -31,5 +28,9 @@ func main() {
 		os.Exit(1)
 	}
 
-	os.Exit(zwaveDriver.wait())
+	// os.Exit(zwaveDriver.wait())
+
+	shell := newShell(zwaveDriver)
+	shell.cli.Println("zwave shell-test")
+	shell.cli.Start()
 }

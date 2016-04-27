@@ -1,6 +1,6 @@
 package main
 
-import "github.com/ninjasphere/go-openzwave"
+import "github.com/shayne/zwave/go-openzwave"
 
 type zLogger struct {
 }

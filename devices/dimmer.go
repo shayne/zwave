@@ -3,7 +3,7 @@ package devices
 import (
 	"fmt"
 
-	"github.com/ninjasphere/go-openzwave"
+	"github.com/shayne/zwave/go-openzwave"
 )
 
 // DimmerDevice yah

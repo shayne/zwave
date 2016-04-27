@@ -3,9 +3,9 @@ package main
 import (
 	"fmt"
 
-	"github.com/ninjasphere/go-openzwave"
-	"github.com/ninjasphere/go-openzwave/LOG_LEVEL"
-	"github.com/ninjasphere/go-openzwave/NT"
+	"github.com/shayne/zwave/go-openzwave"
+	"github.com/shayne/zwave/go-openzwave/LOG_LEVEL"
+	"github.com/shayne/zwave/go-openzwave/NT"
 	"github.com/shayne/zwave/devices"
 )
 

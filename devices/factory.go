@@ -3,7 +3,7 @@ package devices
 import (
 	"fmt"
 
-	openzwave "github.com/ninjasphere/go-openzwave"
+	openzwave "github.com/shayne/zwave/go-openzwave"
 )
 
 // DeviceFactory yah
