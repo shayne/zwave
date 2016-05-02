@@ -7,7 +7,7 @@ import (
 	"github.com/shayne/zwave/devices"
 )
 
-var deviceMap = map[string]*devices.DimmerDevice{}
+var deviceMap = map[interface{}]interface{}{}
 
 func main() {
 	var debug bool
@@ -16,13 +16,12 @@ func main() {
 	flagset.BoolVar(&debug, "debug", false, "Enable debugging")
 	flagset.Parse(os.Args[1:])
 
-	zwaveDriver, err := newZwaveDriver(debug)
-	zwaveDriver.setReadyCallback(func() {
-		go func() {
-		}()
+	zwaveDriver, err := devices.NewZwaveDriver(&devices.ZDriverCfg{
+		DeviceMap: deviceMap,
+		Debug:     debug,
 	})
 
-	zwaveDriver.start()
+	zwaveDriver.Start()
 
 	if err != nil {
 		os.Exit(1)

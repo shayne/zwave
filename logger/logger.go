@@ -1,11 +1,12 @@
-package main
+package logger
 
 import "github.com/shayne/zwave/go-openzwave"
 
 type zLogger struct {
 }
 
-func newZwaveLogger() openzwave.Logger {
+// NewZwaveLogger func
+func NewZwaveLogger() openzwave.Logger {
 	return &zLogger{}
 }
 

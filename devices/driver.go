@@ -1,4 +1,4 @@
-package main
+package devices
 
 import (
 	"fmt"
@@ -6,55 +6,53 @@ import (
 	"github.com/shayne/zwave/go-openzwave"
 	"github.com/shayne/zwave/go-openzwave/LOG_LEVEL"
 	"github.com/shayne/zwave/go-openzwave/NT"
-	"github.com/shayne/zwave/devices"
+
+	"github.com/shayne/zwave/logger"
 )
 
-type zDriver struct {
-	debug    bool
+// ZDriver type
+type ZDriver struct {
+	config   *ZDriverCfg
 	zwaveAPI openzwave.API
 	exit     chan int
-	ready    func()
 }
 
-func newZwaveDriver(debug bool) (*zDriver, error) {
-	driver := &zDriver{
-		debug:    debug,
+// ZDriverCfg type
+type ZDriverCfg struct {
+	DeviceMap map[interface{}]interface{}
+	Debug     bool
+}
+
+// NewZwaveDriver func
+func NewZwaveDriver(config *ZDriverCfg) (*ZDriver, error) {
+	driver := &ZDriver{
+		config:   config,
 		zwaveAPI: nil,
 		exit:     make(chan int, 0),
-		ready:    nil,
 	}
 
 	return driver, nil
 }
 
-func (d *zDriver) setReadyCallback(cb func()) {
-	d.ready = cb
-}
-
-func (d *zDriver) start() error {
+// Start func
+func (d *ZDriver) Start() error {
 	notificationCallback := func(api openzwave.API, notification openzwave.Notification) {
 		switch notification.GetNotificationType().Code {
 		case NT.ALL_NODES_QUERIED_SOME_DEAD:
-			if d.ready != nil {
-				d.ready()
-			}
 		case NT.ALL_NODES_QUERIED:
-			if d.ready != nil {
-				d.ready()
-			}
 		}
 	}
 
 	zwaveDeviceFactory := func(api openzwave.API, node openzwave.Node) openzwave.Device {
 		d.zwaveAPI = api
-		return devices.DeviceFactory(api, node)
+		return DeviceFactory(api, node)
 	}
 
 	configurator := openzwave.
 		BuildAPI("/etc/openzwave", "./zwave-config", "").
-		SetLogger(newZwaveLogger()).
+		SetLogger(logger.NewZwaveLogger()).
 		SetDeviceFactory(zwaveDeviceFactory).
-		SetEventsCallback(eventsCallback).
+		SetEventsCallback(eventsCallback(d.config.DeviceMap)).
 		SetNotificationCallback(notificationCallback).
 		AddIntOption("SaveLogLevel", LOG_LEVEL.NONE).
 		AddIntOption("QueueLogLevel", LOG_LEVEL.NONE).
@@ -63,9 +61,7 @@ func (d *zDriver) start() error {
 		AddBoolOption("IntervalBetweenPolls", true).
 		AddBoolOption("ValidateValueChanges", true)
 
-	d.ready()
-
-	if d.debug {
+	if d.config.Debug {
 		callback := func(api openzwave.API, notification openzwave.Notification) {
 			fmt.Printf("%v\n", notification)
 			notificationCallback(api, notification)
@@ -80,12 +76,13 @@ func (d *zDriver) start() error {
 	return nil
 }
 
-func (d *zDriver) stop() error {
+// Stop func
+func (d *ZDriver) Stop() error {
 	d.zwaveAPI.QuitSignal() <- 0
 	d.zwaveAPI.Shutdown(0)
 	return nil
 }
 
-func (d *zDriver) wait() int {
+func (d *ZDriver) wait() int {
 	return <-d.exit
 }
