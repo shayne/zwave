@@ -1,8 +1,9 @@
-package devices
+package driver
 
 import (
 	"fmt"
 
+	"github.com/shayne/zwave/device"
 	"github.com/shayne/zwave/go-openzwave"
 )
 
@@ -12,9 +13,9 @@ func eventsCallback(deviceMap map[interface{}]interface{}) func(api openzwave.AP
 		case *openzwave.NodeAvailable:
 			fmt.Println("NodeAvailable!")
 			node := event.GetNode()
-			device := node.GetDevice()
+			d := node.GetDevice()
 			// Add node to any device that supports it
-			if dimmer, ok := device.(*DimmerDevice); ok {
+			if dimmer, ok := d.(*device.DimmerDevice); ok {
 				deviceMap[dimmer.Node.GetNodeName()] = dimmer
 			}
 		case *openzwave.NodeChanged:

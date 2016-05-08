@@ -4,7 +4,7 @@ import (
 	"flag"
 	"os"
 
-	"github.com/shayne/zwave/devices"
+	"github.com/shayne/zwave/driver"
 )
 
 var deviceMap = map[interface{}]interface{}{}
@@ -16,7 +16,7 @@ func main() {
 	flagset.BoolVar(&debug, "debug", false, "Enable debugging")
 	flagset.Parse(os.Args[1:])
 
-	zwaveDriver, err := devices.NewZwaveDriver(&devices.ZDriverCfg{
+	zwaveDriver, err := driver.NewZwaveDriver(&driver.ZDriverCfg{
 		DeviceMap: deviceMap,
 		Debug:     debug,
 	})

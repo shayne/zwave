@@ -6,15 +6,16 @@ import (
 	"strconv"
 
 	"github.com/abiosoft/ishell"
-	"github.com/shayne/zwave/devices"
+	"github.com/shayne/zwave/device"
+	"github.com/shayne/zwave/types"
 )
 
 type shell struct {
 	cli    *ishell.Shell
-	driver *devices.ZDriver
+	driver types.Driver
 }
 
-func newShell(driver *devices.ZDriver) *shell {
+func newShell(driver types.Driver) *shell {
 	shell := &shell{
 		cli:    ishell.New(),
 		driver: driver,
@@ -48,9 +49,15 @@ func (s *shell) register() {
 		if err != nil {
 			return "", errors.New("usage: set-dimmers <float-value>")
 		}
-		for _, device := range deviceMap {
-			if dimmer, ok := device.(*devices.DimmerDevice); ok {
-				dimmer.ChangeValue(float32(value))
+		for _, d := range deviceMap {
+			if dimmer, ok := d.(*device.DimmerDevice); ok {
+				go func() {
+					err := dimmer.SetBrightness(float64(value))
+					if err != nil {
+						fmt.Printf("Error: %v\n", err)
+					}
+				}()
+				// dimmer.ChangeValue(float32(value))
 			}
 		}
 		return "ChangeValue called", nil

@@ -1,4 +1,4 @@
-package devices
+package driver
 
 import (
 	"fmt"
@@ -6,6 +6,7 @@ import (
 	"github.com/shayne/zwave/go-openzwave"
 	"github.com/shayne/zwave/go-openzwave/LOG_LEVEL"
 	"github.com/shayne/zwave/go-openzwave/NT"
+	"github.com/shayne/zwave/types"
 
 	"github.com/shayne/zwave/logger"
 )
@@ -24,7 +25,7 @@ type ZDriverCfg struct {
 }
 
 // NewZwaveDriver func
-func NewZwaveDriver(config *ZDriverCfg) (*ZDriver, error) {
+func NewZwaveDriver(config *ZDriverCfg) (types.Driver, error) {
 	driver := &ZDriver{
 		config:   config,
 		zwaveAPI: nil,
@@ -45,7 +46,7 @@ func (d *ZDriver) Start() error {
 
 	zwaveDeviceFactory := func(api openzwave.API, node openzwave.Node) openzwave.Device {
 		d.zwaveAPI = api
-		return DeviceFactory(api, node)
+		return GetLibrary().GetDeviceFactory(*node.GetProductId())(d, node)
 	}
 
 	configurator := openzwave.
@@ -74,6 +75,11 @@ func (d *ZDriver) Start() error {
 	}()
 
 	return nil
+}
+
+// Connection func
+func (d *ZDriver) Connection() types.Connection {
+	return &connection{}
 }
 
 // Stop func

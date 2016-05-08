@@ -5,7 +5,8 @@ PREFIX=MF
 enumerate()
 {
 cat <<EOF
-AEON_LABS 0086 
+AEON_LABS 0086
+GE 0x0063
 EOF
 }
 
@@ -43,7 +44,7 @@ type Enum struct {
 }
 
 
-func ToEnum(code string) *Enum {	
+func ToEnum(code string) *Enum {
      var needle *Enum = nil;
      for _, e := range enums {
        if code == e.Code {
@@ -53,7 +54,7 @@ func ToEnum(code string) *Enum {
      }
      if needle == nil {
         needle = &UNKNOWN_ENUM
-     } 
+     }
      return needle
 }
 
@@ -64,11 +65,10 @@ func (val Enum) IsValid() bool {
 func (val Enum) String() string {
      if val.IsValid() {
 	return val.Name
-     } else { 
+     } else {
         return fmt.Sprintf("%s[%d]", UNKNOWN_ENUM.Name, val.Code);
-     }	
+     }
 }
 
 EOF
-gofmt -s -w $PREFIX/$PREFIX.go && cd $PREFIX && go install 
-
+gofmt -s -w $PREFIX/$PREFIX.go && cd $PREFIX && go install
