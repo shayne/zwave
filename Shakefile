@@ -2,14 +2,12 @@
 export COMMAND_PREFIX="cmd-"
 
 IMAGE_NAME="zwave"
-VOLUME="${PWD}:/go/src/github.com/shayne/zwave"
+# added leading slash for cygwin support
+VOLUME="/${PWD}:/go/src/github.com/shayne/zwave"
 PROJ_DIR="/go/src/github.com/shayne/zwave"
 BUILD_DIR="${PROJ_DIR}/build"
 CMD_DIR="${PROJ_DIR}/cmd/shell"
 DOCKER_RUN_CMD="docker run --rm -it -v $VOLUME $IMAGE_NAME"
-
-# shellcheck disable=SC2046
-eval $(docker-machine env --shell=bash)
 
 # build deploy and run
 function cmd-all {
