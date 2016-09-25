@@ -2,7 +2,7 @@
 
 enumerate()
 {
-    cat /libs/openzwave-1.4.193/cpp/src/Notification.h | sed -n "/enum NotificationType/,/}/p" | sed -n "s/^.*Type_//p" | tr -d \\015 | sed "s/[^A-Za-z].*//g"
+    cat /libs/openzwave-1.4.2143/cpp/src/Notification.h | sed -n "/enum NotificationType/,/}/p" | sed -n "s/^.*Type_//p" | tr -d \\015 | sed "s/[^A-Za-z].*//g"
 }
 
 symbol()

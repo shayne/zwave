@@ -4,7 +4,7 @@ PREFIX=LOG_LEVEL
 
 enumerate()
 {
-    x=0; cat /libs/openzwave-1.4.193/cpp/src/platform/Log.h | tr \\011 ' ' | sed -n "s/^  *LogLevel_//p" | sed "s/[^A-Za-z].*//" | while read n; do echo $x $n; let x=x+1; done
+    x=0; cat /libs/openzwave-1.4.2143/cpp/src/platform/Log.h | tr \\011 ' ' | sed -n "s/^  *LogLevel_//p" | sed "s/[^A-Za-z].*//" | while read n; do echo $x $n; let x=x+1; done
 }
 
 symbol()

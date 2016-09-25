@@ -15,7 +15,7 @@ package openzwave
 //
 
 // #cgo LDFLAGS: -lopenzwave -Lgo/src/github.com/shayne/zwave/go-openzwave/openzwave
-// #cgo CPPFLAGS: -I/libs/openzwave-1.4.193/cpp/src/platform -I/libs/openzwave-1.4.193/cpp/src -I/libs/openzwave-1.4.193/cpp/src/value_classes
+// #cgo CPPFLAGS: -I/libs/openzwave-1.4.2143/cpp/src/platform -I/libs/openzwave-1.4.2143/cpp/src -I/libs/openzwave-1.4.2143/cpp/src/value_classes
 // #include "api.h"
 import "C"
 
