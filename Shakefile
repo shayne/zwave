@@ -1,13 +1,18 @@
 #!/bin/bash
 export COMMAND_PREFIX="cmd-"
 
-IMAGE_NAME="zwave"
+IMAGE_NAME="zwave:latest"
 # added leading slash for cygwin support
 VOLUME="/${PWD}:/go/src/github.com/shayne/zwave"
 PROJ_DIR="/go/src/github.com/shayne/zwave"
 BUILD_DIR="${PROJ_DIR}/build"
 CMD_DIR="${PROJ_DIR}/cmd/shell"
-DOCKER_RUN_CMD="docker run --rm -it -v $VOLUME $IMAGE_NAME"
+
+function docker_run_cmd {
+  local usr_go="$(docker volume create --name zwave-usrgo):/usr/local/go"
+  local pkg_cache="$(docker volume create --name zwave-gopkg):/go/pkg"
+  echo "docker run --rm -v $usr_go -v $pkg_cache -v $VOLUME $IMAGE_NAME"
+}
 
 # build deploy and run
 function cmd-all {
@@ -16,14 +21,18 @@ function cmd-all {
   shake run
 }
 
+function cmd-docker-shell {
+  $(docker_run_cmd) bash
+}
+
 # cross-compile go app in docker container (out: build/zwave)
 function cmd-build {
-  $DOCKER_RUN_CMD bash -c "cd $BUILD_DIR && go build -v ../cmd/shell"
+  $(docker_run_cmd) bash -c "cd $BUILD_DIR && go build -v -i ../cmd/shell"
 }
 
 # generate go-openzwave code from openzwave headers
 function cmd-make-deps {
-  $DOCKER_RUN_CMD bash -c "cd ${PROJ_DIR}/go-openzwave && make deps"
+  $(docker_run_cmd) bash -c "cd ${PROJ_DIR}/go-openzwave && make deps"
 }
 
 # deploy to raspberrypi

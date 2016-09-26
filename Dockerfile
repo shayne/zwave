@@ -100,4 +100,5 @@ ENV CGO_ENABLED=1
 ENV CC=arm-linux-gnueabi-gcc
 ENV GXX=arm-linux-gnueabi-g++
 
+VOLUME /go
 WORKDIR /go

@@ -1,0 +1,7 @@
+targets:
+  shell-windows-cygwin:
+    sh: false
+    cmd: bash
+    args:
+      - -c
+      - shake build
