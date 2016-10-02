@@ -1,0 +1,14 @@
+{
+    "version": "0.1.0",
+    "command": "fish",
+    "isShellCommand": true,
+    "args": ["-c"],
+    "showOutput": "always",
+    "suppressTaskName": true,
+    "tasks": [
+        {
+            "taskName": "build",
+            "args": ["/usr/local/bin/shake build"]
+        }
+    ]
+}
