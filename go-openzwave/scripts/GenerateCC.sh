@@ -4,7 +4,7 @@ PREFIX=CC
 
 enumerate()
 {
-    grep [iI]mplements /libs/openzwave-1.4.2143/cpp/src/command_classes/*.h | tr -d '()' | sed "s|.*/command_classes/||;s|:.*COMMAND_CLASS_| |;s|,.*||;s|.*\\.h ||;s/ x/ 0x/"
+    grep [iI]mplements /libs/openzwave-1.4.164/cpp/src/command_classes/*.h | tr -d '()' | sed "s|.*/command_classes/||;s|:.*COMMAND_CLASS_| |;s|,.*||;s|.*\\.h ||;s/ x/ 0x/"
 }
 
 symbol()

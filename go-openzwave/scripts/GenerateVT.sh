@@ -4,7 +4,7 @@ PREFIX=VT
 
 enumerate()
 {
-    cat /libs/openzwave-1.4.2143/cpp/src/value_classes/ValueID.h | grep ValueType_ | grep -v _Max | sed "s/.*_//" | sed "s/^\([A-Za-z]*\).*/\1/" | number
+    cat /libs/openzwave-1.4.164/cpp/src/value_classes/ValueID.h | grep ValueType_ | grep -v _Max | sed "s/.*_//" | sed "s/^\([A-Za-z]*\).*/\1/" | number
 }
 
 number()

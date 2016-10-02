@@ -32,4 +32,5 @@ func main() {
 	shell := newShell(zwaveDriver)
 	shell.cli.Println("zwave shell")
 	shell.cli.Start()
+
 }

@@ -82,12 +82,12 @@ RUN cd eudev-3.1.5 \
   && make install \
   ;
 
-RUN curl -fsSL http://old.openzwave.com/snapshots/openzwave-1.4.2143.tar.gz -o openzwave-1.4.2143.tar.gz \
-  && tar xzf openzwave-1.4.2143.tar.gz \
-  && rm openzwave-1.4.2143.tar.gz \
+RUN curl -fsSL http://old.openzwave.com/downloads/openzwave-1.4.164.tar.gz -o openzwave-1.4.164.tar.gz \
+  && tar xzf openzwave-1.4.164.tar.gz \
+  && rm openzwave-1.4.164.tar.gz \
   ;
 
-RUN cd openzwave-1.4.2143 \
+RUN cd openzwave-1.4.164 \
   && make -j ARCH=arm CROSS_COMPILE=arm-linux-gnueabi- \
   && cp libopenzwave.so* /usr/arm-linux-gnueabi/lib \
   ;

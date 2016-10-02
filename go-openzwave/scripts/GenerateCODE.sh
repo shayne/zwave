@@ -4,7 +4,7 @@ PREFIX=CODE
 
 enumerate()
 {
-    x=0; cat /libs/openzwave-1.4.2143/cpp/src/Notification.h | grep Code | grep Code_ | sed "s/^.*Code/Code/" | sed "s/Code_//" | sed "s/[^A-Za-z].*//" | while read n; do echo $x $n; let x=x+1; done
+    x=0; cat /libs/openzwave-1.4.164/cpp/src/Notification.h | grep Code | grep Code_ | sed "s/^.*Code/Code/" | sed "s/Code_//" | sed "s/[^A-Za-z].*//" | while read n; do echo $x $n; let x=x+1; done
 }
 
 symbol()
