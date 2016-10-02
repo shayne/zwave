@@ -37,12 +37,12 @@ function cmd-make-deps {
 
 # deploy to raspberrypi
 function cmd-deploy {
-  scp build/shell raspberrypi:
+  scp build/shell raspberrypi.local:
 }
 
 # run on raspberrypi
 function cmd-run {
-  ssh -t raspberrypi ./shell
+  ssh -t raspberrypi.local ./shell
 }
 
 function cmd-docker-build {
